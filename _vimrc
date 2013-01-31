@@ -1,4 +1,5 @@
-" https://github.com/sontek/dotfiles/
+" based of sontek's dotfiles @ https://github.com/sontek/dotfiles/
+"
 " ==========================================================
 " Dependencies - Libraries/Applications outside of vim
 " ==========================================================
@@ -130,9 +131,9 @@ map <leader>r :RopeRename<CR>
 " Pathogen - Allows us to organize our vim plugins
 " ==========================================================
 " Load pathogen with docs for all plugins
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+"filetype off
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
 
 " ==========================================================
 " Basic Settings
@@ -217,10 +218,10 @@ set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
 set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
+"set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
-set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
+set listchars=tab:>-,trail:-,precedes:<,extends:>
 set list
 
 """ Searching and Patterns
@@ -231,16 +232,7 @@ set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
 """" Display
-if has("gui_running")
-    colorscheme desert
-    " Remove menu bar
-    set guioptions-=m
-
-    " Remove toolbar
-    set guioptions-=T
-else
-    colorscheme torte
-endif
+" colorscheme vividchalk
 
 " Paste from clipboard
 map <leader>p "+p
@@ -305,4 +297,3 @@ if filereadable($VIRTUAL_ENV . '/.vimrc')
     source $VIRTUAL_ENV/.vimrc
 endif
 
-set colorcolumn=79
