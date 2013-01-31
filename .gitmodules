@@ -64,6 +64,6 @@
 [submodule "_vim/bundle/coffee"]
 	path = _vim/bundle/coffee
 	url = https://github.com/kchmck/vim-coffee-script.git
-[submodule "bundle/vim-jade"]
-	path = bundle/vim-jade
+[submodule "_vim/bundle/vim-jade"]
+	path = _vim/bundle/vim-jade
 	url = https://github.com/digitaltoad/vim-jade

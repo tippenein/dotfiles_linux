@@ -48,6 +48,11 @@
 " MakeGreen
 "    Generic test runner that works with nose
 "
+filetype off " Pathogen needs to run before plugin indent on
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags() " generate helptags for everything in 'runtimepath'
+filetype plugin indent on
+
 " ==========================================================
 " Shortcuts
 " ==========================================================
@@ -276,7 +281,7 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 
-
+colorscheme vividchalk
 
 " Add the virtualenv's site-packages to vim path
 if has('python')
