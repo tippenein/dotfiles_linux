@@ -200,7 +200,7 @@ set foldmethod=indent       " allow us to fold on indents
 set foldlevel=99            " don't fold by default
 
 " don't outdent hashes
-inoremap # #
+" inoremap # #
 
 " close preview window automatically when we move around
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
