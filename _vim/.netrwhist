@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/home/tippenein/dotfiles/_vim/bundle/vim-vividchalk'
 let g:netrw_dirhist_2='/home/tippenein/projects/potsfyi/static/js/app'
+let g:netrw_dirhist_3='/home/tippenein/projects/classroom_finder/static/css'
