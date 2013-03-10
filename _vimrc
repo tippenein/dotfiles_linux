@@ -15,20 +15,8 @@
 " Pathogen
 "     Better Management of VIM plugins
 "
-" GunDo
-"     Visual Undo in vim with diff's to check the differences
-"
 " Pytest
 "     Runs your Python tests in Vim.
-"
-" Commant-T
-"     Allows easy search and opening of files within a given path
-"
-" Snipmate
-"     Configurable snippets to avoid re-typing common comands
-"
-" PyFlakes
-"     Underlines and displays errors with Python on-the-fly
 "
 " Fugitive
 "    Interface with git from vim
@@ -36,17 +24,11 @@
 " Git
 "    Syntax highlighting for git config files
 "
-" Pydoc
-"    Opens up pydoc within vim
-"
 " Surround
 "    Allows you to surround text with open/close tags
 "
 " Py.test
 "    Run py.test test's from within vim
-"
-" MakeGreen
-"    Generic test runner that works with nose
 "
 filetype off " Pathogen needs to run before plugin indent on
 call pathogen#runtime_append_all_bundles()
@@ -143,6 +125,7 @@ map <leader>r :RopeRename<CR>
 " ==========================================================
 " Basic Settings
 " ==========================================================
+au Bufenter *.hs compiler ghc
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
@@ -152,7 +135,7 @@ set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
-
+let g:haddock_browser = "/usr/bin/chromium-browser"
 " don't bell or blink
 set noerrorbells
 set vb t_vb=
@@ -237,7 +220,7 @@ set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
 """" Display
-" colorscheme vividchalk
+colorscheme vividchalk
 
 " Paste from clipboard
 map <leader>p "+p
