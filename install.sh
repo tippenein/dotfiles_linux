@@ -31,6 +31,12 @@ elif [ "$1" = "restore" ]; then
         unlink_file $i
     done
     exit
+elif [ "$1" = "dots" ]; then
+    for i in _*
+    do
+        link_file $i
+    done
+    exit
 else
     for i in _*
     do

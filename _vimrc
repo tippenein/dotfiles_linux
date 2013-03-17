@@ -222,6 +222,7 @@ set incsearch               " Incrementally search while typing a /regex
 """" Display
 colorscheme vividchalk
 
+
 " Paste from clipboard
 map <leader>p "+p
 

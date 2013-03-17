@@ -24,7 +24,7 @@ main = do
       -- eveything else
       , modMask             = mod4Mask
       , workspaces          = ["shell", "www", "chat"] ++ map show [4..9]
-      , borderWidth         = 3 
+      , borderWidth         = 3
       , normalBorderColor   = "#000000" 
       , focusedBorderColor  = "#8ab07f"
       , terminal            = "xterm"
