@@ -1,14 +1,20 @@
 xterm*background: black
 xterm*foreground: white
 
+urxvt.boldColors:       on
+urxvt.font:     xft:LiberationSans:pixelsize=14:antialias=true:hinting=true:regular
+urxvt.boldFont: xft:LiberationSans:pixelsize=14:antialias=true:hinting=true:bold
+! vim:ft=xdefaults
+URxvt*letterSpace:      -3
 URxvt.buffered:         true
 URxvt.background:       black
 URxvt.foreground:       white
 URxvt.cursorColor:      green
-URxvt.perl-ext-common:  default,matcher
-URxvt.urlLauncher:      /usr/bin/chromium
+URxvt.perl-ext-common:  matcher,readline,clipboard-osc
+URxvt.urlLauncher:      firefox
 URxvt.matcher.button:   1
 URxvt.scrollBar:        false
+URxvt.colorUL:          #4682B4
 
 ! urxvt defaults:
 ! color0       (black)            = Black

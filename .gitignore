@@ -6,5 +6,6 @@ _vim/ropevim/pylibs*
 *.swp
 *.pyc
 */xmonad.errors
+*/xmonad-i386-linux
 *.hi
 *.o

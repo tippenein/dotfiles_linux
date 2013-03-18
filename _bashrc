@@ -2,6 +2,7 @@
 [ -z "$PS1" ] && return
 
 export PATH=/home/tippenein/bin:$PATH
+export PATH=/home/tippenein/.cabal/bin:$PATH
 #osx color terminal
 export CLICOLOR=1
 # don't put duplicate lines in the history. See bash(1) for more options
