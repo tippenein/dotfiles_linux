@@ -2,15 +2,17 @@ xterm*background: black
 xterm*foreground: white
 
 urxvt.boldColors:       on
-urxvt.font:     xft:LiberationSans:pixelsize=14:antialias=true:hinting=true:regular
-urxvt.boldFont: xft:LiberationSans:pixelsize=14:antialias=true:hinting=true:bold
+urxvt.font:     xft:Monospace:pixelsize=12:antialias=true:hinting=true:regular
+urxvt.boldFont: xft:Monospace:pixelsize=12:antialias=true:hinting=true:bold
 ! vim:ft=xdefaults
-URxvt*letterSpace:      -3
+URxvt*letterSpace:      -2
 URxvt.buffered:         true
 URxvt.background:       black
 URxvt.foreground:       white
 URxvt.cursorColor:      green
-URxvt.perl-ext-common:  matcher,readline,clipboard-osc
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755:         False
+URxvt.perl-ext-common:  matcher,readline,clipboard
 URxvt.urlLauncher:      firefox
 URxvt.matcher.button:   1
 URxvt.scrollBar:        false

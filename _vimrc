@@ -94,6 +94,7 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+
 " and lets make these all work in insert mode too ( <C-O> makes next cmd
 "  happen as if in command mode )
 imap <C-W> <C-O><C-W>
@@ -125,7 +126,6 @@ map <leader>r :RopeRename<CR>
 " ==========================================================
 " Basic Settings
 " ==========================================================
-au Bufenter *.hs compiler ghc
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
@@ -135,7 +135,6 @@ set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
-let g:haddock_browser = "/usr/bin/chromium-browser"
 " don't bell or blink
 set noerrorbells
 set vb t_vb=
@@ -173,9 +172,9 @@ set nowrap                  " don't wrap text
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 set smartindent             " use smart indent if there is no indent file
-set tabstop=4               " <tab> inserts 4 spaces 
-set shiftwidth=4            " but an indent level is 2 spaces wide.
-set softtabstop=4           " <BS> over an autoindent deletes both spaces.
+set tabstop=2               " <tab> inserts 4 spaces 
+set shiftwidth=2            " but an indent level is 2 spaces wide.
+set softtabstop=2           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well

@@ -3,6 +3,7 @@
 *~
 _vim/ropevim/src*
 _vim/ropevim/pylibs*
+*netrwhist
 *.swp
 *.pyc
 */xmonad.errors
