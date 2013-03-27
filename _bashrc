@@ -3,6 +3,7 @@
 
 export PATH=/home/tippenein/bin:$PATH
 export PATH=/home/tippenein/.cabal/bin:$PATH
+export PATH=/home/tippenein/bin/sbt/bin:$PATH
 #osx color terminal
 export CLICOLOR=1
 # don't put duplicate lines in the history. See bash(1) for more options

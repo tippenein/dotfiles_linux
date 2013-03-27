@@ -11,7 +11,7 @@ myManageHook = composeAll
        ]
 
 main = do
-    xmproc <- spawnPipe "xmobar /home/tippenein/.xmobarrc"
+    xmproc <- spawnPipe "/home/tippenein/.cabal/bin/xmobar /home/tippenein/.xmobarrc"
     xmonad $ defaultConfig
         -- xmobar stuff
       { manageHook = manageDocks <+> myManageHook
@@ -27,7 +27,7 @@ main = do
       , borderWidth         = 3
       , normalBorderColor   = "#000000" 
       , focusedBorderColor  = "#8ab07f"
-      , terminal            = "xterm"
+      , terminal            = "urxvt"
       } `additionalKeys`
       [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
       , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")

@@ -1,18 +1,15 @@
-Config {  font   = "-*-terminus-*-*-*-*-12-*-*-*-*-*-*-u"  
+Config {  font   = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
         , bgColor      = "#000000"
         , fgColor      = "#00FFFF"
         , position     =  Top
-        , lowerOnStart = False
-        , commands     = [ Run Network "eth0" ["-L","0","-H","32","-l", "green", "--normal","orange","--high","red"] 40
-            , Run Cpu ["<cpu0>/<cpu1>","-L","3","-H","50","-l","green","--normal","orange","--high","red"]   40
-            , Run Cpu ["<cpu0>","-L","3","-H","50","-l","green","--normal","orange","--high","red"]  40
-            , Run Memory ["-t","Mem: <usedratio>%", "-l", "green", "--normal","orange","--high","red"] 40
-            , Run Date "%a %b %_d %H:%M" "date" 60
-            , Run CpuFreq ["-t","Freq: <cpu0> | <cpu1> GHz","-L","0","-H","2","-l","green","-n","orange","-h","red"] 50
-            , Run StdinReader
-            ]
-        , sepChar      = "%"
-        , alignSep     = "}{"
-        , template = " %StdinReader% }{ %cpu% @ %cpufreq% <fc=#0033FF>|</fc>  %memory% <fc=#0033FF>|</fc> %eth0% <fc=#0033FF>|</fc> %date%             "
+        , lowerOnStart = True
+        , commands = [ Run Weather "KANE" ["-t","<station>: <tempF>F","-L","32","-H","75","--normal","green","--high","red","--low","lightblue"] 36000
+                     , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                     , Run StdinReader
+                     ]
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%StdinReader% }{ %wlan0% }{ %KANE% | <fc=#ee9a00>%date%</fc>"
        }
 
