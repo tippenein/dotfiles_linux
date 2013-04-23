@@ -55,6 +55,8 @@ endfu
 
 nmap <leader>sb :call SplitScroll()<CR>
 
+" Execute python file being edited with <Shift> + e:
+map <buffer> <S-e> :w<CR>:!/usr/bin/env python % <CR>
 
 "<CR><C-w>l<C-f>:set scrollbind<CR>
 
@@ -264,7 +266,6 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 
-colorscheme vividchalk
 
 " Add the virtualenv's site-packages to vim path
 if has('python')

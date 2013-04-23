@@ -16,7 +16,7 @@ URxvt.perl-ext-common:  matcher,readline,clipboard
 URxvt.urlLauncher:      firefox
 URxvt.matcher.button:   1
 URxvt.scrollBar:        false
-URxvt*borderLess:       false
+URxvt.borderLess:       false
 URxvt.colorUL:          #4682B4
 
 ! urxvt defaults:
@@ -24,7 +24,7 @@ URxvt.colorUL:          #4682B4
 ! color1       (red)              = Red3
 ! color2       (green)            = Green3
 ! color3       (yellow)           = Yellow3
-! color4       (blue)             = Blue3
+! color4       (blue)             = Blue2
 ! color5       (magenta)          = Magenta3
 ! color6       (cyan)             = Cyan3
 ! color7       (white)            = AntiqueWhite
