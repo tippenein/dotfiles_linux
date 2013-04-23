@@ -1,6 +1,6 @@
 Config {  font   = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
         , bgColor      = "#000000"
-        , fgColor      = "#00FFFF"
+        , fgColor      = "#c5d2db"
         , position     =  Top
         , lowerOnStart = True
         , commands = [ Run Weather "KANE" ["-t","<station>: <tempF>F","-L","32","-H","75","--normal","green","--high","red","--low","lightblue"] 36000
@@ -8,7 +8,7 @@ Config {  font   = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
                      , Run Com "/home/tippenein/bin/volumeStat.sh" [] "volume" 30
                      , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                      , Run StdinReader
-                     , Run BatteryP ["BAT0"] 
+                     , Run BatteryP ["BAT0"]
                                     ["-t", "<acstatus><watts> (<left>%)",
                                      "-L", "10", "-H", "80", "-p", "3",
                                      "--", "-O", "<fc=green>On</fc> - ", "-o", "",
@@ -18,6 +18,6 @@ Config {  font   = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
                      ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% }{ %volume% }{ %KANE% | %battery% | <fc=#ee9a00>%date%</fc>"
+        , template = "%StdinReader% }{ %volume% | %KANE% | %battery% | <fc=#f4921e>%date%</fc>"
        }
 

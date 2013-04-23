@@ -1,40 +1,75 @@
 import XMonad
+--- layouts
+import XMonad.Layout.Spacing
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Circle
+---
+import XMonad.Hooks.EwmhDesktops hiding (fullscreenEventHook)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Actions.CycleWS
 import System.IO
 
-myManageHook = composeAll
-       [ className =? "feh"     --> doFloat
-       , className =? "Gimp"    --> doFloat
-       , className =? "Firefox" --> doShift "2:www"
-       , className =? "Pidgin"  --> doShift "3:chat"
-       , className =? "vlc"     --> doShift "5:other"
-       , className =? "Evince"  --> doShift "5:other"
-       , className =? "libreoffice" --> doShift "6"
-       ]
+-------------------
+-- Layouts --------
+-------------------
+myLayout = avoidStruts  $  layoutHook defaultConfig
+
+-------------------
+-- Worspace names -
+-------------------
+myWorkspaces = ["shell"
+               ,"web"
+               ,"chat"
+               ,"music"
+               ,"other"
+               ,"mail"]
+
+-------------------
+-- Hooks ----------
+-------------------
+myManageHook = composeAll [ resource =? "dmenu" --> doFloat
+                          , resource =? "skype" --> doFloat
+                          , resource =? "Gimp"  --> doFloat
+                          , resource =? "feh"   --> doFloat
+                          , resource =? "Nm-connection-editor" --> doFloat
+                          , resource =? "firefox" --> doShift (myWorkspaces !! 2)
+                          , resource =? "Pidgin"  --> doShift (myWorkspaces !! 3)
+                          , resource =? "lowriter"--> doShift (myWorkspaces !! 5)
+                          , resource =? "localc"  --> doShift (myWorkspaces !! 5)
+                          , resource =? "evince"  --> doShift (myWorkspaces !! 5)
+                          , manageDocks]
+newManageHook = myManageHook <+> manageHook defaultConfig
 
 main = do
     xmproc <- spawnPipe "/home/tippenein/.cabal/bin/xmobar /home/tippenein/.xmobarrc"
     xmonad $ defaultConfig
-        -- xmobar stuff
-      { manageHook = manageDocks <+> myManageHook
-                        <+> manageHook defaultConfig
-      , layoutHook = avoidStruts  $  layoutHook defaultConfig
-      , logHook    = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc
-                        , ppTitle = xmobarColor "green" "" . shorten 50
-                        }
-      -- eveything else
-      , modMask             = mod1Mask
-      , workspaces          = ["1:shell", "2:www", "3:chat", "4:music", "5:other"] ++ map show [6..9]
-      , borderWidth         = 2
-      , normalBorderColor   = "#000000" 
-      , focusedBorderColor  = "#88bb77"
-      , focusFollowsMouse   = False
-      , terminal            = "urxvt"
-      } `additionalKeys`
+      { borderWidth        = 2
+      , manageHook         = newManageHook
+      , modMask            = mod1Mask
+      , workspaces         = myWorkspaces
+      , layoutHook         = smartBorders $ myLayout
+      , normalBorderColor  = myNormalBorderColor
+      , focusedBorderColor = myFocusedBorderColor
+      , terminal           = myTerminal
+      , handleEventHook    = fullscreenEventHook <+> docksEventHook
+      , focusFollowsMouse  = False
+      , logHook = dynamicLogWithPP xmobarPP
+                { ppOutput = hPutStrLn xmproc
+                , ppTitle = xmobarColor "green" "" . shorten 50
+                }
+      }
+----------------
+-- Keybinds ----
+----------------
+      `additionalKeys`
+      -- screensaver
       [ ((mod1Mask .|. controlMask, xK_z),
         spawn "xscreensaver-command -lock")
       -- normal screenshot
@@ -52,4 +87,21 @@ main = do
       -- firefox
       , ((mod1Mask .|. shiftMask, xK_w),
         spawn "firefox")
-      ] 
+      -- Network manager connection editor
+      , ((mod1Mask .|. shiftMask, xK_n),
+        spawn "nm-connection-editor")
+      ]
+
+----------------
+-- constants ---
+----------------
+myTerminal = "urxvt"
+myFocusedBorderColor = "#88bb77"
+myNormalBorderColor  = "#000033"
+-- Fonts only useful if switching to dzen/conky
+--myFont = "-*-terminus-medium-*-normal-*-9-*-*-*-*-*-*-*"
+--myFont = "-*-lime-*-*-*-*-*-*-*-*-*-*-*-*"
+--myFont = "-*-nu-*-*-*-*-*-*-*-*-*-*-*-*"
+--myFont = "'sans:italic:bold:underline'"
+--myFont = "xft:Droxd Sans:size=12"
+--myFont = "-*-cure-*-*-*-*-*-*-*-*-*-*-*-*"
