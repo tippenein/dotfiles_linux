@@ -1,21 +1,30 @@
+-- xmonad.hs  
+-- some of the structure inspired by this:
+-- http://thinkingeek.com/2011/11/21/simple-guide-configure-xmonad-dzen2-conky/
+-- otherwise most is cargoculted from other shit
+
 import XMonad
---- layouts
-import XMonad.Layout.Spacing
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.NoBorders
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.SimplestFloat
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Circle
----
-import XMonad.Hooks.EwmhDesktops hiding (fullscreenEventHook)
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Util.Run(spawnPipe)
+-- Hooks
+import XMonad.Operations
+
+import System.IO
+import System.Exit
+
+import XMonad.Util.Run
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Actions.CycleWS
-import System.IO
 
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
+
+import XMonad.Layout.NoBorders (smartBorders, noBorders)
+import XMonad.Layout.PerWorkspace (onWorkspace, onWorkspaces)
+import XMonad.Layout.SimpleFloat
+
+import qualified XMonad.StackSet as W
+import qualified Data.Map as M
 -------------------
 -- Layouts --------
 -------------------
@@ -24,27 +33,55 @@ myLayout = avoidStruts  $  layoutHook defaultConfig
 -------------------
 -- Worspace names -
 -------------------
-myWorkspaces = ["shell"
-               ,"web"
-               ,"chat"
-               ,"music"
-               ,"other"
-               ,"mail"]
+myWorkspaces = ["1:shell"
+               ,"2:web"
+               ,"3:chat"
+               ,"4:music"
+               ,"5:other"
+               ,"6:mail"]
 
 -------------------
 -- Hooks ----------
 -------------------
-myManageHook = composeAll [ resource =? "dmenu" --> doFloat
-                          , resource =? "skype" --> doFloat
-                          , resource =? "Gimp"  --> doFloat
-                          , resource =? "feh"   --> doFloat
-                          , resource =? "Nm-connection-editor" --> doFloat
-                          , resource =? "firefox" --> doShift (myWorkspaces !! 2)
-                          , resource =? "Pidgin"  --> doShift (myWorkspaces !! 3)
-                          , resource =? "lowriter"--> doShift (myWorkspaces !! 5)
-                          , resource =? "localc"  --> doShift (myWorkspaces !! 5)
-                          , resource =? "evince"  --> doShift (myWorkspaces !! 5)
-                          , manageDocks]
+myManageHook :: ManageHook
+myManageHook = (composeAll . concat $
+    [ [resource     =? r   --> doIgnore            |   r   <- myIgnores]
+    , [className    =? c   --> doShift  "1:dev"    |   c   <- myDev    ]
+    , [className    =? c   --> doShift  "2:web"    |   c   <- myWeb    ]
+    , [className    =? c   --> doShift  "3:chat"   |   c   <- myChat   ]
+    , [className    =? c   --> doShift  "4:music"  |   c   <- myMusic  ]
+    , [className    =? c   --> doShift  "5:other"  |   c   <- myOther  ]
+    , [className    =? c   --> doShift  "6:mail"   |   c   <- myMail   ]
+    , [className    =? c   --> doCenterFloat       |   c   <- myFloats ]
+    , [name         =? n   --> doCenterFloat       |   n   <- myNames  ]
+    , [isFullscreen        --> myDoFullFloat                           ]
+    ])
+
+    where
+
+        role      = stringProperty "WM_WINDOW_ROLE"
+        name      = stringProperty "WM_NAME"
+
+        -- classnames  --- Use 'xprop' on the commandline to click windows and find out classname
+        myDev     = ["Eclipse"]  -- hate eclipse :(
+        myWeb     = ["Firefox"]
+        myMusic   = ["Google-chrome","Chromium","Chromium-browser","vlc"]  -- I usually use subsonic with chrome
+        myChat    = ["Pidgin","Buddy List"]
+        myOther   = ["Evince","xchm","libreoffice-writer","libreoffice-startcenter"]
+        myMail    = ["Thunderbird", "mutt"]  -- just a reminder to use mutt instead, eventually
+        myFloats  = ["feh","Gimp","Xmessage","XFontSel","Nm-connection-editor"]
+ 
+        -- resources
+        myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
+ 
+        -- names
+        myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
+ 
+        -- a trick for fullscreen but stil allow focusing of other WSs
+        myDoFullFloat :: ManageHook
+        myDoFullFloat = doF W.focusDown <+> doFullFloat
+
+
 newManageHook = myManageHook <+> manageHook defaultConfig
 
 main = do
@@ -87,9 +124,20 @@ main = do
       -- firefox
       , ((mod1Mask .|. shiftMask, xK_w),
         spawn "firefox")
+      -- thunderbird
+      , ((mod1Mask .|. shiftMask, xK_t),
+        spawn "thunderbird")
+      -- libre office
+      , ((mod1Mask .|. shiftMask, xK_l),
+        spawn "libreoffice")
       -- Network manager connection editor
       , ((mod1Mask .|. shiftMask, xK_n),
         spawn "nm-connection-editor")
+      -- workspaces
+      , ((mod1Mask .|. controlMask,   xK_Right     ), nextWS)
+      , ((mod1Mask .|. shiftMask,     xK_Right     ), shiftToNext)
+      , ((mod1Mask .|. controlMask,   xK_Left      ), prevWS)
+      , ((mod1Mask .|. shiftMask,     xK_Left      ), shiftToPrev)
       ]
 
 ----------------

@@ -3,10 +3,10 @@ Config {  font   = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
         , fgColor      = "#c5d2db"
         , position     =  Top
         , lowerOnStart = True
-        , commands = [ Run Weather "KANE" ["-t","<station>: <tempF>F","-L","32","-H","75","--normal","green","--high","red","--low","lightblue"] 36000
+        , commands = [ Run Weather "KMSP" ["-t","<tempF>F","-L","32","-H","75","--normal","green","--high","red","--low","lightblue"] 36000
                      , Run Network "wlan0" ["-L","0","-H","82","--normal","green","--high","red"] 10
                      , Run Com "/home/tippenein/bin/volumeStat.sh" [] "volume" 30
-                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                     , Run Date "%a %b %_d %Y %H:%M" "date" 10
                      , Run StdinReader
                      , Run BatteryP ["BAT0"]
                                     ["-t", "<acstatus><watts> (<left>%)",
@@ -18,6 +18,6 @@ Config {  font   = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
                      ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% }{ %volume% | %KANE% | %battery% | <fc=#f4921e>%date%</fc>"
+        , template = "%StdinReader% }{ %volume% < %KMSP% < %battery% < <fc=#f4921e>%date%</fc>"
        }
 
