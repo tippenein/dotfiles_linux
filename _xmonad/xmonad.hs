@@ -127,6 +127,9 @@ main = do
       -- thunderbird
       , ((mod1Mask .|. shiftMask, xK_t),
         spawn "thunderbird")
+      -- use chromium for subsonic
+      , ((mod1Mask .|. shiftMask, xK_s),
+        spawn "chromium-browser --instant-url 'tippenein.subsonic.org'")
       -- libre office
       , ((mod1Mask .|. shiftMask, xK_l),
         spawn "libreoffice")
