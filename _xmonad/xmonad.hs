@@ -37,7 +37,7 @@ myWorkspaces = ["1:shell"
                ,"2:web"
                ,"3:chat"
                ,"4:music"
-               ,"5:other"
+               ,"5:vm"
                ,"6:mail"]
 
 -------------------
@@ -85,7 +85,7 @@ myManageHook = (composeAll . concat $
 newManageHook = myManageHook <+> manageHook defaultConfig
 
 main = do
-    xmproc <- spawnPipe "/home/tippenein/.cabal/bin/xmobar /home/tippenein/.xmobarrc"
+    xmproc <- spawnPipe "/home/brady/.cabal/bin/xmobar /home/brady/.xmobarrc"
     xmonad $ defaultConfig
       { borderWidth        = 2
       , manageHook         = newManageHook
@@ -122,7 +122,7 @@ main = do
       , ((mod1Mask .|. controlMask, xK_k),
         spawn "amixer -q set Master 3%+")
       -- firefox
-      , ((mod1Mask .|. shiftMask, xK_w),
+      , ((mod1Mask .|. shiftMask, xK_f),
         spawn "firefox")
       -- thunderbird
       , ((mod1Mask .|. shiftMask, xK_t),

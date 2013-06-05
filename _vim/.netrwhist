@@ -1,4 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/tippenein/projects/potsfyi/test'
 let g:netrw_dirhist_2='/home/tippenein/classes/4061/hw5'
+let g:netrw_dirhist_3='/home/brady/sparkweave/spokes/auth_spoke/doc'
+let g:netrw_dirhist_4='/home/brady/sparkweave/spokes/auth_spoke/api'
