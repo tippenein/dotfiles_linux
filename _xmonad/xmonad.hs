@@ -36,10 +36,12 @@ myLayout = avoidStruts  $  layoutHook defaultConfig
 myWorkspaces = ["1:shell"
                ,"2:web"
                ,"3:chat"
-               ,"4:music"
-               ,"5:vm"
-               ,"6:mail"]
-
+               ,"4:mail"
+               ,"5:music"
+               ,"6:vm"
+               ,"7"
+               ,"8"
+               ,"9:rdesk"]
 -------------------
 -- Hooks ----------
 -------------------
@@ -136,6 +138,12 @@ main = do
       -- Network manager connection editor
       , ((mod1Mask .|. shiftMask, xK_n),
         spawn "nm-connection-editor")
+      -- cmus next track
+      , ((mod1Mask, xK_b),
+        spawn "cmus-remote -n")
+      -- cmus pause track
+      , ((mod1Mask, xK_c),
+        spawn "cmus-remote -u")
       -- workspaces
       , ((mod1Mask .|. controlMask,   xK_Right     ), nextWS)
       , ((mod1Mask .|. shiftMask,     xK_Right     ), shiftToNext)
