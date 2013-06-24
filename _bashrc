@@ -219,19 +219,5 @@ alias cbwd="pwd | cb"
 # Copy most recent command in bash history
 alias cbhs="cat $HISTFILE | tail -n 1 | cb"  
 
-# General aliases
-sp() {
-  arg=$1
-  if [ "${arg:0:2}" == "pr" ];
-  then
-    cd ~/sparkweave/projects/sparkweave/${arg:3:`echo $arg | wc -c`}
-  elif [ "${arg:0:2}" == "sp" ];
-  then
-    cd ~/sparkweave/spokes/${arg:3:`echo $arg | wc -c`}
-  else
-    cd ~/sparkweave/$arg
-  fi
-}
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

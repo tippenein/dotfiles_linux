@@ -1,0 +1,43 @@
+sp() {
+  arg=$1
+  if [ "${arg:0:2}" == "pr" ];
+  then
+    cd ~/sparkweave/projects/sparkweave/${arg:3:`echo $arg | wc -c`}
+  elif [ "${arg:0:2}" == "sp" ];
+  then
+    cd ~/sparkweave/spokes/${arg:3:`echo $arg | wc -c`}
+  else
+    cd ~/sparkweave/$arg
+  fi
+}
+searchm() {
+  arg=$1
+  ls ~/remote-music/ | grep -i $1
+}
+move_dat_torrent() {
+  if scp -q ~/Downloads/*.torrent tippenein@morpheus.feralhosting.com:~/private/rtorrent/watch/; then
+      mv ~/Downloads/*.torrent ~/Downloads/tmp-torrent/;
+  else
+      echo 'failed to scp'
+  fi &disown
+}
+mnt_music() {
+  sudo sshfs -o allow_other -o reconnect -o auto_cache -o ServerAliveInterval=15 tippenein@morpheus.feralhosting.com:/media/sdv1/home/tippenein/private/rtorrent/data /home/brady/remote-music
+}
+alias sp='sp'
+alias searchm='searchm'
+alias move_dat_torrent='move_dat_torrent'
+alias get_server_torrents='scp tippenein@morpheus.feralhosting.com:~/*.torrent ~/'
+alias mount_music='mnt_music'
+alias sshbronta='ssh brady@brontasaur.us'
+alias sshirc='ssh bo@brdyorn.com'
+alias sshferal='ssh tippenein@morpheus.feralhosting.com'
+alias sshsw='ssh bouncer@10.21.14.27'
+
+alias apt-install='sudo apt-get install'
+alias apt-search='apt-cache search'
+alias apt-show='apt-cache show'
+alias apt-purge='sudo apt-get --purge  remove'
+alias apt-remove='sudo apt-get remove'
+alias apt-up="sudo apt-get update && sudo apt-get upgrade"
+alias apt-policy="LANG=C apt-cache policy"
