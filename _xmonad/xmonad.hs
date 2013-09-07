@@ -91,7 +91,7 @@ main = do
     xmonad $ defaultConfig
       { borderWidth        = 2
       , manageHook         = newManageHook
-      , modMask            = mod1Mask
+      , modMask            = mod4Mask
       , workspaces         = myWorkspaces
       , layoutHook         = smartBorders $ myLayout
       , normalBorderColor  = myNormalBorderColor
@@ -109,7 +109,7 @@ main = do
 ----------------
       `additionalKeys`
       -- screensaver
-      [ ((mod1Mask .|. controlMask, xK_z),
+      [ ((modMask .|. controlMask, xK_z),
         spawn "xscreensaver-command -lock")
       -- normal screenshot
       , ((0, xK_Print),
@@ -118,38 +118,39 @@ main = do
       , ((controlMask, xK_Print),
         spawn "sleep 0.2; scrot -s")
       -- Decrease volume.
-      , ((mod1Mask .|. controlMask, xK_j),
+      , ((modMask .|. controlMask, xK_j),
         spawn "amixer -q set Master 3%-")
       -- Increase volume.
-      , ((mod1Mask .|. controlMask, xK_k),
+      , ((modMask .|. controlMask, xK_k),
         spawn "amixer -q set Master 3%+")
       -- firefox
-      , ((mod1Mask .|. shiftMask, xK_f),
+      , ((modMask .|. shiftMask, xK_f),
         spawn "firefox")
       -- thunderbird
-      , ((mod1Mask .|. shiftMask, xK_t),
+      , ((modMask .|. shiftMask, xK_t),
         spawn "thunderbird")
       -- use chromium for subsonic
-      , ((mod1Mask .|. shiftMask, xK_s),
+      , ((modMask .|. shiftMask, xK_s),
         spawn "chromium-browser --instant-url 'tippenein.subsonic.org'")
       -- libre office
-      , ((mod1Mask .|. shiftMask, xK_l),
+      , ((modMask .|. shiftMask, xK_l),
         spawn "libreoffice")
       -- Network manager connection editor
-      , ((mod1Mask .|. shiftMask, xK_n),
+      , ((modMask .|. shiftMask, xK_n),
         spawn "nm-connection-editor")
       -- cmus next track
-      , ((mod1Mask, xK_b),
+      , ((modMask, xK_b),
         spawn "cmus-remote -n")
       -- cmus pause track
-      , ((mod1Mask, xK_c),
+      , ((modMask, xK_c),
         spawn "cmus-remote -u")
       -- workspaces
-      , ((mod1Mask .|. controlMask,   xK_Right     ), nextWS)
-      , ((mod1Mask .|. shiftMask,     xK_Right     ), shiftToNext)
-      , ((mod1Mask .|. controlMask,   xK_Left      ), prevWS)
-      , ((mod1Mask .|. shiftMask,     xK_Left      ), shiftToPrev)
+      , ((modMask .|. controlMask,   xK_Right     ), nextWS)
+      , ((modMask .|. shiftMask,     xK_Right     ), shiftToNext)
+      , ((modMask .|. controlMask,   xK_Left      ), prevWS)
+      , ((modMask .|. shiftMask,     xK_Left      ), shiftToPrev)
       ]
+    where modMask = mod4Mask
 
 ----------------
 -- constants ---
