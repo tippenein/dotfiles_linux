@@ -90,7 +90,10 @@ by Prelude.")
 (require 'prelude-mode)
 (require 'prelude-editor)
 (require 'prelude-global-keybindings)
-
+;; load evil vim layer
+(require 'evil)
+(evil-mode 1)
+(load-theme 'solarized-dark t)
 ;; OSX specific settings
 (when (eq system-type 'darwin)
   (require 'prelude-osx))

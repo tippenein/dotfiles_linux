@@ -1,6 +1,7 @@
 *logs*
 *.log
 *~
+*/cache/
 _vim/ropevim/src*
 _vim/ropevim/pylibs*
 *netrwhist
@@ -10,3 +11,9 @@ _vim/ropevim/pylibs*
 */xmonad-i386-linux
 *.hi
 *.o
+_emacs.d/elpa/
+_emacs.d/personal/
+_emacs.d/sample/
+_emacs.d/savefile
+*/savefile/
+_emacs.d/projectile-bookmarks.eld

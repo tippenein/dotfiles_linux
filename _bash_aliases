@@ -1,15 +1,3 @@
-sp() {
-  arg=$1
-  if [ "${arg:0:2}" == "pr" ];
-  then
-    cd ~/sparkweave/projects/sparkweave/${arg:3:`echo $arg | wc -c`}
-  elif [ "${arg:0:2}" == "sp" ];
-  then
-    cd ~/sparkweave/spokes/${arg:3:`echo $arg | wc -c`}
-  else
-    cd ~/sparkweave/$arg
-  fi
-}
 searchm() {
   arg=$1
   ls ~/remote-music/ | grep -i $1
@@ -24,7 +12,8 @@ move_dat_torrent() {
 mnt_music() {
   sudo sshfs -o allow_other -o reconnect -o auto_cache -o ServerAliveInterval=15 tippenein@morpheus.feralhosting.com:/media/sdv1/home/tippenein/private/rtorrent/data /home/brady/remote-music
 }
-alias sp='sp'
+alias sp='cd `python /home/brady/bin/sw-glob.py spokes $1`'
+alias pr='cd `python /home/brady/bin/sw-glob.py projects/sparkweave $1`'
 alias searchm='searchm'
 alias move_dat_torrent='move_dat_torrent'
 alias get_server_torrents='scp tippenein@morpheus.feralhosting.com:~/*.torrent ~/'
@@ -32,7 +21,7 @@ alias mount_music='mnt_music'
 alias sshbronta='ssh brady@brontasaur.us'
 alias sshirc='ssh bo@brdyorn.com'
 alias sshferal='ssh tippenein@morpheus.feralhosting.com'
-alias sshsw='ssh brady@10.21.14.40'
+alias sshsw='ssh bouncer@10.21.7.69'
 alias vpnsw='sudo openvpn --config /home/tippenein/bin/client.ovpn'
 alias e='emacsclient -t'
 alias ec='emacsclient -c'

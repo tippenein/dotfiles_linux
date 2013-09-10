@@ -87,7 +87,7 @@ myManageHook = (composeAll . concat $
 newManageHook = myManageHook <+> manageHook defaultConfig
 
 main = do
-    xmproc <- spawnPipe "/home/tippenein/.cabal/bin/xmobar /home/tippenein/.xmobarrc"
+    xmproc <- spawnPipe "/home/brady/.cabal/bin/xmobar /home/brady/.xmobarrc"
     xmonad $ defaultConfig
       { borderWidth        = 2
       , manageHook         = newManageHook
