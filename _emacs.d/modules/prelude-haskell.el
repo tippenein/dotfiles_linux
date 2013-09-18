@@ -35,17 +35,26 @@
 (require 'prelude-programming)
 (prelude-ensure-module-deps '(haskell-mode))
 
-(eval-after-load 'haskell-mode
-  '(progn
-     (defun prelude-haskell-mode-defaults ()
-       (subword-mode +1)
-       (turn-on-haskell-doc-mode)
-       (turn-on-haskell-indentation))
+(add-hook 'haskell-mode-hook
+    (lambda ()
+      (setq haskell-literate-comment-face 'default)
+      (local-set-key '[?\C-=] 'haskell-indent-insert-equal)
+      (local-set-key [?\C-a] 'haskell-beginning-of-line-or-indent)))
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-font-lock)
+(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 
-     (setq prelude-haskell-mode-hook 'prelude-haskell-mode-defaults)
-
-     (add-hook 'haskell-mode-hook (lambda ()
-                                    (run-hooks 'prelude-haskell-mode-hook)))))
+;;(eval-after-load 'haskell-mode
+;;  '(progn
+;;     (defun prelude-haskell-mode-defaults ()
+;;       (subword-mode +1)
+;;       (turn-on-haskell-doc-mode)
+;;       (turn-on-haskell-indentation))
+;;
+;;     (setq prelude-haskell-mode-hook 'prelude-haskell-mode-defaults)
+;;
+;;     (add-hook 'haskell-mode-hook (lambda ()
+;;                                    (run-hooks 'prelude-haskell-mode-hook)))))
 
 (provide 'prelude-haskell)
 

@@ -1,11 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/tippenein/projects/potsfyi/test'
-let g:netrw_dirhist_2='/home/tippenein/classes/4061/hw5'
-let g:netrw_dirhist_3='/home/brady/sparkweave/spokes/auth_spoke/doc'
-let g:netrw_dirhist_4='/home/brady/sparkweave/spokes/auth_spoke/api'
-let g:netrw_dirhist_5='/home/brady/buildserver'
-let g:netrw_dirhist_6='/home/brady/sparkweave/spokes/auth_spoke/api'
-let g:netrw_dirhist_7='/home/brady/other-projects/ideas-yesod-style/templates'
-let g:netrw_dirhist_8='/home/brady/other-projects/ideas-yesod-style/Settings'
-let g:netrw_dirhist_9='/home/brady/sparkweave/spokes/auth_spoke/api'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/home/brady/projects/hink/routes'
+let g:netrw_dirhist_2='/home/brady/sparkweave/spokes/audit_trail_spoke/web'

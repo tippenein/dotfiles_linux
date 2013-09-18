@@ -1,1 +1,1 @@
-("~/dotfiles/_emacs.d/" "~/.emacs.d/" "~/sparkweave/" "~/projects/hink/" "~/dotfiles/")
+("~/projects/snap-start/" "~/sparkweave/" "~/dotfiles/_emacs.d/" "~/.emacs.d/" "~/projects/hink/" "~/dotfiles/")

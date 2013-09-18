@@ -66,6 +66,8 @@ cmap W! w !sudo tee % >/dev/null
 " Toggle the tasklist
 map <leader>td <Plug>TaskList
 
+" haddock browser
+let g:haddock_browser = "/usr/bin/firefox"
 " Run pep8
 let g:pep8_map='<leader>8'
 

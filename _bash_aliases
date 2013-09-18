@@ -12,22 +12,31 @@ move_dat_torrent() {
 mnt_music() {
   sudo sshfs -o allow_other -o reconnect -o auto_cache -o ServerAliveInterval=15 tippenein@morpheus.feralhosting.com:/media/sdv1/home/tippenein/private/rtorrent/data /home/brady/remote-music
 }
-alias sp='cd `python /home/brady/bin/sw-glob.py spokes $1`'
-alias pr='cd `python /home/brady/bin/sw-glob.py projects/sparkweave $1`'
+
+## music / torrent ##
 alias searchm='searchm'
 alias move_dat_torrent='move_dat_torrent'
 alias get_server_torrents='scp tippenein@morpheus.feralhosting.com:~/*.torrent ~/'
 alias mount_music='mnt_music'
+
+## ssh ##
 alias sshbronta='ssh brady@brontasaur.us'
 alias sshirc='ssh bo@brdyorn.com'
 alias sshferal='ssh tippenein@morpheus.feralhosting.com'
-alias sshsw='ssh bouncer@10.21.7.69'
+
+## vpn ##
 alias vpnsw='sudo openvpn --config /home/tippenein/bin/client.ovpn'
+
+## emacs ##
 alias e='emacsclient -t'
 alias ec='emacsclient -c'
-#alias vim='emacsclient -t'
-#alias vi='emacsclient -t'
 
+## hink ##
+alias s='hink search'
+alias c='hink create'
+alias l='hink list'
+
+## aptitude ##
 alias apt-install='sudo apt-get install'
 alias apt-search='apt-cache search'
 alias apt-show='apt-cache show'
