@@ -1,39 +1,18 @@
-" based of sontek's dotfiles @ https://github.com/sontek/dotfiles/
-"
-" ==========================================================
-" Dependencies - Libraries/Applications outside of vim
-" ==========================================================
-" Pep8 - http://pypi.python.org/pypi/pep8
-" Pyflakes
-" Ack
-" Rake & Ruby for command-t
-" nose, django-nose
+" based off sontek's dotfiles @ https://github.com/sontek/dotfiles/
 
-" ==========================================================
-" Plugins included
-" ==========================================================
-" Pathogen
-"     Better Management of VIM plugins
-"
-" Pytest
-"     Runs your Python tests in Vim.
-"
-" Fugitive
-"    Interface with git from vim
-"
-" Git
-"    Syntax highlighting for git config files
-"
-" Surround
-"    Allows you to surround text with open/close tags
-"
-" Py.test
-"    Run py.test test's from within vim
-"
 filetype off " Pathogen needs to run before plugin indent on
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
+syntax on
 filetype plugin indent on
+
+au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+
+au Bufenter *.hs compiler ghc
+
+let g:haddock_browser = "/usr/bin/firefox"
+let g:syntastic_python_checkers=['pylint']
 
 " ==========================================================
 " Shortcuts
@@ -133,7 +112,7 @@ map <leader>r :RopeRename<CR>
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
-set number                    " Display line numbers
+" set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
 set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
@@ -153,10 +132,6 @@ set grepprg=ack         " replace the default grep program with ack
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
-
-" Disable the colorcolumn when switching modes.  Make sure this is the
-" first autocmd for the filetype here
-"autocmd FileType * setlocal colorcolumn=0
 
 """ Insert completion
 " don't select first item, follow typing in autocomplete
@@ -186,7 +161,7 @@ set foldmethod=indent       " allow us to fold on indents
 set foldlevel=99            " don't fold by default
 
 " don't outdent hashes
-" inoremap # #
+inoremap # #
 
 " close preview window automatically when we move around
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -209,7 +184,7 @@ set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
 set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
-"set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
+set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 " displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>-,trail:-,precedes:<,extends:>
@@ -241,11 +216,6 @@ nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" ==========================================================
-" Javascript
-" ==========================================================
-au BufRead *.js set makeprg=jslint\ %
-
 " Use tab to scroll through autocomplete menus
 "autocmd VimEnter * imap <expr> <Tab> pumvisible() ? "<C-N>" : "<Tab>"
 "autocmd VimEnter * imap <expr> <S-Tab> pumvisible() ? "<C-P>" : "<S-Tab>"
@@ -258,6 +228,11 @@ let g:acp_completeoptPreview=1
 " Mako/HTML
 autocmd BufNewFile,BufRead *.mako,*.mak,*.jinja2 setlocal ft=html
 autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+" Javascript
+" ==========
+au BufRead *.js set makeprg=jslint\ %
+
 " Python
 "au BufRead *.py compiler nose
 au FileType python set omnifunc=pythoncomplete#Complete
@@ -287,3 +262,89 @@ if filereadable($VIRTUAL_ENV . '/.vimrc')
     source $VIRTUAL_ENV/.vimrc
 endif
 
+" Movement (files)
+" ================
+" Change window movement with ctrl only
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
+
+" Change buffers with shift h,l (miniBufExpl)
+map <S-l> :MBEbn<CR>
+map <S-h> :MBEbp<CR>
+
+" Automatically resize windows on resize
+autocmd VimResized * wincmd =
+
+" Reload Vimrc
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+" Select the item in the list with enter
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Highlight end of line whitespace.
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+
+
+" Fold Color
+highlight Folded ctermbg=black ctermfg=yellow guibg=black guifg=yellow
+
+" Diff colors
+highlight DiffAdd cterm=none ctermbg=Green gui=none guifg=bg guibg=Green
+highlight DiffDelete cterm=none ctermbg=Red gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=none ctermbg=Yellow gui=none guifg=bg guibg=Yellow
+highlight DiffText cterm=none ctermbg=Magenta gui=none guifg=bg guibg=Magenta
+
+" =========================================================
+" Plugins
+" =========================================================
+"
+
+" TComment - commenting keybinds
+" ==============================
+" gc{motion}        - toggle comments
+" gcc / <c-_><c-_>  - toggle comment current line
+" <c-_>p            - toggle comments paragraph
+"
+" visual:
+" gc                - toggle comments
+
+" Surround - surround keybinds
+" ============================
+" ds{}              - delete surrounding {}
+" dst               - delete surrouding tags
+" cs{t}{r}          - change surrounding {t} with {r}  ] no space. [ space
+"
+" ysw{} (ysiw{})    - wraps word with {}
+" yss{}             - wraps current line with {}
+" ySS               - wrap current line and place in newline
+
+"   v: S{}          - wrap selected with {}
+" S-v: S{}          - wrap all selected lines with {}
+" C-v: S{}          - wrap each selected line with {}
+"
+" i: <C-S>{}        - wrap cursor in {}{}
+" i: <C-S><C-S>{}   - wrap cursor in {}\n\n{}
+
+" Gundo - undo tree explorer
+" ==========================
+map <leader>gt :GundoToggle<CR>      " Load the Gundo window
+
+" NerdTree - file explorer
+" ========================
+map <leader>nt :NERDTreeToggle<CR>   " Toggle NerdTree
+
+
+" TaskList - list of todo/fixme in code
+" =====================================
+map <leader>td <Plug>TaskList       " Toggle the tasklist
+
+" Fugitive - git interface
+" ========================
+map <silent><Leader>gs :Gstatus<CR>
+map <silent><Leader>gd :Gdiff<CR>

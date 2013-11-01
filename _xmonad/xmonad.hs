@@ -54,6 +54,7 @@ myManageHook = (composeAll . concat $
     , [className    =? c   --> doShift  "4:music"  |   c   <- myMusic  ]
     , [className    =? c   --> doShift  "5:other"  |   c   <- myOther  ]
     , [className    =? c   --> doShift  "6:mail"   |   c   <- myMail   ]
+    , [className    =? c   --> doShift  "9:rdesk"  |   c   <- myRdesk  ]
     , [className    =? c   --> doCenterFloat       |   c   <- myFloats ]
     , [name         =? n   --> doCenterFloat       |   n   <- myNames  ]
     , [isFullscreen        --> myDoFullFloat                           ]
@@ -72,6 +73,7 @@ myManageHook = (composeAll . concat $
         myOther   = ["Evince","xchm","libreoffice-writer","libreoffice-startcenter"]
         myMail    = ["Thunderbird", "mutt"]  -- just a reminder to use mutt instead, eventually
         myFloats  = ["feh","Gimp","Xmessage","XFontSel","Nm-connection-editor"]
+        myRdesk   = ["rdesktop"]
  
         -- resources
         myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
@@ -113,10 +115,10 @@ main = do
         spawn "xscreensaver-command -lock")
       -- normal screenshot
       , ((0, xK_Print),
-        spawn "scrot '/tmp/%Y-%m-%d_%H:%M:%S_$wx$h_scrot.png' -e 'mv $f ~/screenies'")
+        spawn "scrot -e 'mv $f ~/screenies'")
       -- select screenshot
       , ((controlMask, xK_Print),
-        spawn "sleep 0.2; scrot -s")
+        spawn "sleep 0.2; scrot -s -e 'mv $f ~/screenies'")
       -- Decrease volume.
       , ((modMask .|. controlMask, xK_j),
         spawn "amixer -q set Master 3%-")
@@ -145,10 +147,10 @@ main = do
       , ((modMask, xK_c),
         spawn "cmus-remote -u")
       -- workspaces
-      , ((modMask .|. controlMask,   xK_Right     ), nextWS)
-      , ((modMask .|. shiftMask,     xK_Right     ), shiftToNext)
-      , ((modMask .|. controlMask,   xK_Left      ), prevWS)
-      , ((modMask .|. shiftMask,     xK_Left      ), shiftToPrev)
+      , ((modMask .|. controlMask, xK_Right ), nextWS)
+      , ((modMask .|. shiftMask,   xK_Right ), shiftToNext)
+      , ((modMask .|. controlMask, xK_Left  ), prevWS)
+      , ((modMask .|. shiftMask,   xK_Left  ), shiftToPrev)
       ]
     where modMask = mod4Mask
 

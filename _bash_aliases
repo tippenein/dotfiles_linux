@@ -10,7 +10,13 @@ move_dat_torrent() {
   fi &disown
 }
 mnt_music() {
-  sudo sshfs -o allow_other -o reconnect -o auto_cache -o ServerAliveInterval=15 tippenein@morpheus.feralhosting.com:/media/sdv1/home/tippenein/private/rtorrent/data /home/brady/remote-music
+  sudo sshfs -o allow_other -o reconnect -o auto_cache -o ServerAliveInterval=15 brady@10.21.14.40:/home/brady/remote-music/ $HOME/remote-music
+}
+swspoke() {
+  cd `python /home/brady/bin/swglob spokes $1`
+}
+swproj() {
+  cd `python /home/brady/bin/swglob projects/sparkweave $1`
 }
 
 ## music / torrent ##
@@ -44,3 +50,9 @@ alias apt-purge='sudo apt-get --purge  remove'
 alias apt-remove='sudo apt-get remove'
 alias apt-up="sudo apt-get update && sudo apt-get upgrade"
 alias apt-policy="LANG=C apt-cache policy"
+alias sshsw='ssh bouncer@10.21.7.69'
+alias sp='swspoke'
+alias pr='swproj'
+
+alias ..='cd ..'
+alias ...='cd ../..'
