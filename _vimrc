@@ -6,17 +6,22 @@ call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 syntax on
 filetype plugin indent on
 
+au BufEnter *.hs compiler ghc
+
+let g:haddock_browser = "/usr/bin/firefox"
+let g:ghc = "/usr/bin/ghc"
+let g:haddock_docdir = "/usr/share/doc/ghc6-doc/html/"
+
 au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
 
 au Bufenter *.hs compiler ghc
 
-let g:haddock_browser = "/usr/bin/firefox"
 let g:syntastic_python_checkers=['pylint']
-
 " ==========================================================
 " Shortcuts
 " ==========================================================
+set t_Co=16
 set nocompatible              " Don't be compatible with vi
 let mapleader=","             " change the leader to be a comma vs slash
 
@@ -35,7 +40,7 @@ endfu
 nmap <leader>sb :call SplitScroll()<CR>
 
 " Execute python file being edited with <Shift> + e:
-map <buffer> <S-e> :w<CR>:!/usr/bin/env python % <CR>
+" map <buffer> <S-e> :w<CR>:!/usr/bin/env python % <CR>
 
 "<CR><C-w>l<C-f>:set scrollbind<CR>
 
@@ -114,7 +119,6 @@ filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
 " set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
-set background=dark           " We are using dark background in vim
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
@@ -151,7 +155,7 @@ set nowrap                  " don't wrap text
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
 "set smartindent             " use smart indent if there is no indent file
-set tabstop=2               " <tab> inserts 4 spaces 
+set tabstop=2               " <tab> inserts 4 spaces
 set shiftwidth=2            " but an indent level is 2 spaces wide.
 set softtabstop=2           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
@@ -193,12 +197,16 @@ set list
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
-set smarttab                " Handle tabs more intelligently 
+set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
 """" Display
 colorscheme vividchalk
+"colorscheme solarized
+"let g:solarized_termcolors=256
+"color jellybeans
+"set background=dark
 
 
 " Paste from clipboard
@@ -285,6 +293,9 @@ nnoremap <leader>. :lcd %:p:h<CR>
 
 " Select the item in the list with enter
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Toggle light and dark background
+call togglebg#map("<F5>")
 
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=red guibg=red

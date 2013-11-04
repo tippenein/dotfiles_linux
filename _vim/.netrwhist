@@ -1,4 +1,4 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/home/brady/projects/hink/routes'
-let g:netrw_dirhist_2='/home/brady/sparkweave/spokes/audit_trail_spoke/web'
+let g:netrw_dirhist_1='/home/tippenein/classes/CSCI5106/individual/repo-ouren011/.git'
+let g:netrw_dirhist_2='/home/tippenein/.ghc'

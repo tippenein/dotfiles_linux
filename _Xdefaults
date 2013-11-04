@@ -3,8 +3,9 @@ xterm*foreground: white
 
 urxvt.boldColors:       on
 urxvt.font:     xft:Monospace:pixelsize=12:antialias=true:hinting=true:regular
-urxvt.boldFont: xft:Monospace:pixelsize=12:antialias=true:hinting=true:bold
+urxvt.boldFont: xft:Monospace:pixelsize=13:antialias=true:hinting=true:bold
 ! vim:ft=xdefaults
+! URxvt.intensityStyles: false
 URxvt*letterSpace:      -2
 URxvt.buffered:         true
 URxvt.background:       black
@@ -54,7 +55,7 @@ URxvt.color6:           DarkSlateGray1
 ! White
 URxvt.color7:           MintCream
 ! Bright black
-!URxvt.color8:          Grey25
+URxvt.color8:           Grey25
 ! Bright red
 URxvt.color9:           firebrick1
 ! Bright green
@@ -68,7 +69,7 @@ URxvt.color13:          magenta1
 ! Bright cyan
 URxvt.color14:          cyan1
 ! Bright white
-!URxvt.color15:         White
+URxvt.color15:          White
 
 ! Alternatives
 ! Blue: lighter (looks closer to cyan, but it is an option if deepsky is too

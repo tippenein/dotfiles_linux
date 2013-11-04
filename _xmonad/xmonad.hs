@@ -1,10 +1,9 @@
--- xmonad.hs  
+-- xmonad.hs
 -- some of the structure inspired by this:
 -- http://thinkingeek.com/2011/11/21/simple-guide-configure-xmonad-dzen2-conky/
 -- otherwise most is cargoculted from other shit
 
 import XMonad
--- Hooks
 import XMonad.Operations
 
 import System.IO
@@ -14,6 +13,7 @@ import XMonad.Util.Run
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Actions.CycleWS
 
+-- Hooks
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.DynamicLog
@@ -28,68 +28,62 @@ import qualified Data.Map as M
 -------------------
 -- Layouts --------
 -------------------
-myLayout = avoidStruts  $  layoutHook defaultConfig
+myLayout = avoidStruts $ layoutHook defaultConfig
 
 -------------------
 -- Worspace names -
 -------------------
-myWorkspaces = ["1:shell"
-               ,"2:web"
-               ,"3:chat"
-               ,"4:mail"
-               ,"5:music"
-               ,"6:vm"
-               ,"7"
-               ,"8"
-               ,"9:rdesk"]
+myWorkspaces = [ "1:shell"
+               , "2:web"
+               , "3:chat"
+               , "4:mail"
+               , "5:music"
+               , "6:vm"
+               , "7"
+               , "8"
+               , "9:rdesk"]
 -------------------
 -- Hooks ----------
 -------------------
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
-    [ [resource     =? r   --> doIgnore            |   r   <- myIgnores]
-    , [className    =? c   --> doShift  "1:dev"    |   c   <- myDev    ]
-    , [className    =? c   --> doShift  "2:web"    |   c   <- myWeb    ]
-    , [className    =? c   --> doShift  "3:chat"   |   c   <- myChat   ]
-    , [className    =? c   --> doShift  "4:music"  |   c   <- myMusic  ]
-    , [className    =? c   --> doShift  "5:other"  |   c   <- myOther  ]
-    , [className    =? c   --> doShift  "6:mail"   |   c   <- myMail   ]
-    , [className    =? c   --> doShift  "9:rdesk"  |   c   <- myRdesk  ]
-    , [className    =? c   --> doCenterFloat       |   c   <- myFloats ]
-    , [name         =? n   --> doCenterFloat       |   n   <- myNames  ]
-    , [isFullscreen        --> myDoFullFloat                           ]
+    [ [ resource     =? r   --> doIgnore            |   r   <- myIgnores]
+    , [ className    =? c   --> doShift  "1:dev"    |   c   <- myDev    ]
+    , [ className    =? c   --> doShift  "2:web"    |   c   <- myWeb    ]
+    , [ className    =? c   --> doShift  "3:chat"   |   c   <- myChat   ]
+    , [ className    =? c   --> doShift  "4:music"  |   c   <- myMusic  ]
+    , [ className    =? c   --> doShift  "5:other"  |   c   <- myOther  ]
+    , [ className    =? c   --> doShift  "6:mail"   |   c   <- myMail   ]
+    , [ className    =? c   --> doCenterFloat       |   c   <- myFloats ]
+    , [ name         =? n   --> doCenterFloat       |   n   <- myNames  ]
+    , [ isFullscreen        --> myDoFullFloat                           ]
     ])
 
     where
+      role      = stringProperty "WM_WINDOW_ROLE"
+      name      = stringProperty "WM_NAME"
 
-        role      = stringProperty "WM_WINDOW_ROLE"
-        name      = stringProperty "WM_NAME"
+      -- classnames - Use 'xprop' to click windows and find out classname
+      myDev     = ["Eclipse"]  -- hate eclipse :(
+      myWeb     = ["Firefox"]
+      myMusic   = ["Chromium-browser","chromium-browser","vlc"]
+      myChat    = ["Pidgin","Buddy List", "hipchat", "HipChat"]
+      myOther   = ["Evince","xchm","libreoffice-writer","libreoffice-startcenter"]
+      myMail    = ["Thunderbird", "mutt"]
+      myFloats  = ["feh","Gimp","Xmessage","XFontSel","Nm-connection-editor"]
 
-        -- classnames  --- Use 'xprop' on the commandline to click windows and find out classname
-        myDev     = ["Eclipse"]  -- hate eclipse :(
-        myWeb     = ["Firefox"]
-        myMusic   = ["Google-chrome","Chromium","Chromium-browser","vlc"]  -- I usually use subsonic with chrome
-        myChat    = ["Pidgin","Buddy List"]
-        myOther   = ["Evince","xchm","libreoffice-writer","libreoffice-startcenter"]
-        myMail    = ["Thunderbird", "mutt"]  -- just a reminder to use mutt instead, eventually
-        myFloats  = ["feh","Gimp","Xmessage","XFontSel","Nm-connection-editor"]
-        myRdesk   = ["rdesktop"]
- 
-        -- resources
-        myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
- 
-        -- names
-        myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
- 
-        -- a trick for fullscreen but stil allow focusing of other WSs
-        myDoFullFloat :: ManageHook
-        myDoFullFloat = doF W.focusDown <+> doFullFloat
+      -- resources
+      myIgnores = ["desktop","desktop_window","notify-osd","stalonetray","trayer"]
+      myNames   = ["bashrun","Google Chrome Options","Chromium Options"]
 
+      -- a trick for fullscreen but stil allow focusing of other WSs
+      myDoFullFloat :: ManageHook
+      myDoFullFloat = doF W.focusDown <+> doFullFloat
 
 newManageHook = myManageHook <+> manageHook defaultConfig
 
 main = do
-    xmproc <- spawnPipe "/home/brady/.cabal/bin/xmobar /home/brady/.xmobarrc"
+    xmproc <- spawnPipe "/home/tippenein/.cabal/bin/xmobar /home/tippenein/.xmobarrc"
     xmonad $ defaultConfig
       { borderWidth        = 2
       , manageHook         = newManageHook
@@ -100,10 +94,11 @@ main = do
       , focusedBorderColor = myFocusedBorderColor
       , terminal           = myTerminal
       , handleEventHook    = fullscreenEventHook <+> docksEventHook
-      , focusFollowsMouse  = False
+      , focusFollowsMouse  = True
       , logHook = dynamicLogWithPP xmobarPP
                 { ppOutput = hPutStrLn xmproc
                 , ppTitle = xmobarColor "green" "" . shorten 50
+                , ppLayout = const "" -- to disable the layout info on xmobar
                 }
       }
 ----------------
@@ -159,7 +154,7 @@ main = do
 ----------------
 myTerminal = "urxvt"
 myFocusedBorderColor = "#88bb77"
-myNormalBorderColor  = "#000033"
+myNormalBorderColor  = "#003300"
 -- Fonts only useful if switching to dzen/conky
 --myFont = "-*-terminus-medium-*-normal-*-9-*-*-*-*-*-*-*"
 --myFont = "-*-lime-*-*-*-*-*-*-*-*-*-*-*-*"
@@ -167,3 +162,6 @@ myNormalBorderColor  = "#000033"
 --myFont = "'sans:italic:bold:underline'"
 --myFont = "xft:Droxd Sans:size=12"
 --myFont = "-*-cure-*-*-*-*-*-*-*-*-*-*-*-*"
+
+
+-- use feh --bg-fill /path/to/image for setting the background

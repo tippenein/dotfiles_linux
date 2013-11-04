@@ -10,13 +10,7 @@ move_dat_torrent() {
   fi &disown
 }
 mnt_music() {
-  sudo sshfs -o allow_other -o reconnect -o auto_cache -o ServerAliveInterval=15 brady@10.21.14.40:/home/brady/remote-music/ $HOME/remote-music
-}
-swspoke() {
-  cd `python /home/brady/bin/swglob spokes $1`
-}
-swproj() {
-  cd `python /home/brady/bin/swglob projects/sparkweave $1`
+  sudo sshfs -o allow_other -o reconnect -o auto_cache -o ServerAliveInterval=15 brady@10.21.14.40:/mnt/terabutt/Music /home/tippenein/rmusic
 }
 
 ## music / torrent ##
@@ -29,6 +23,7 @@ alias mount_music='mnt_music'
 alias sshbronta='ssh brady@brontasaur.us'
 alias sshirc='ssh bo@brdyorn.com'
 alias sshferal='ssh tippenein@morpheus.feralhosting.com'
+alias sshcse='ssh ouren011@apollo.cselabs.umn.edu'
 
 ## vpn ##
 alias vpnsw='sudo openvpn --config /home/tippenein/bin/client.ovpn'
@@ -56,3 +51,5 @@ alias pr='swproj'
 
 alias ..='cd ..'
 alias ...='cd ../..'
+alias sshsw='ssh brady@10.21.14.40'
+
